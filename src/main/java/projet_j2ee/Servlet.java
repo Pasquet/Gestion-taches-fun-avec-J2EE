@@ -35,7 +35,7 @@ public class Servlet extends HttpServlet {
         if (liste.containsKey("nom")) {
             try {
                 String nom = request.getParameter("nom");
-                this.premiereConnexion(nom);
+                this.premiereConnexion(nom, request.getParameter("ip"), request.getParameter("nomUser"), request.getParameter("mdp"));
             } catch (Exception ex) {
                 messageAlerte = ex.getMessage();
                 request.setAttribute("messageAlerte", messageAlerte);
@@ -60,8 +60,10 @@ public class Servlet extends HttpServlet {
     }
     
     
-    private void premiereConnexion(String nom) throws Exception{
-          projet = new Projet(nom);
+    private void premiereConnexion(String nom, String ip, String user , String mdp) throws Exception{
+
+
+        projet = new Projet(nom, ip, user, mdp);
           String messageAlerte = projet.connexion();
         if ( projet.getId_projet() == -1) {
             throw new Exception( "Erreur la connexion au projet semble impossible : "+messageAlerte );

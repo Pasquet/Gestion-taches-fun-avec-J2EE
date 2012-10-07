@@ -20,9 +20,17 @@ public class Projet {
     private ArrayList<Tache> taches = new ArrayList<Tache>();
     private ArrayList<Membre> membres = new ArrayList<Membre>();
     private ArrayList<Membre> toutLesMembres = new ArrayList<Membre>();
-
-    public Projet(String name) {
+    private String ip, nomUser, mdp;
+    
+    public Projet(String name, String ip, String nomUser, String mdp) {
         this.name = name;
+        this.ip = ip;
+        this.nomUser = nomUser;
+        this.mdp = mdp;
+    }
+    
+    public Projet(String name) {
+        this(name, "127.0.0.1", "root", "4444");  
     }
 
     private void fermerConnexion(Statement st) {
@@ -36,16 +44,14 @@ public class Projet {
 
     public void chargementToutUser() {
         toutLesMembres.clear();
-        String url = "jdbc:mysql://localhost:3306/gestion_projet";
-        String utilisateur = "root";
-        String motDePasse = "4444";
+        String url = "jdbc:mysql://"+ip+":3306/gestion_projet";
         Connection connexion = null;
         Statement statement = null;
         ResultSet resultat = null;
 
 
         try {
-            connexion = DriverManager.getConnection(url, utilisateur, motDePasse);
+            connexion = DriverManager.getConnection(url, nomUser, mdp);
             statement = connexion.createStatement();
             resultat = statement.executeQuery("SELECT * FROM membre;");
             while (resultat.next()) {
@@ -74,9 +80,8 @@ public class Projet {
     }
 
     public String connexion() {
-        String url = "jdbc:mysql://localhost:3306/gestion_projet";
-        String utilisateur = "root";
-        String motDePasse = "4444";
+        String url = "jdbc:mysql://"+ip+":3306/gestion_projet";
+
         Connection connexion = null;
         Statement statement_1 = null;
         Statement statement_2 = null;
@@ -95,7 +100,7 @@ public class Projet {
         chargementToutUser();
 
         try {
-            connexion = DriverManager.getConnection(url, utilisateur, motDePasse);
+            connexion = DriverManager.getConnection(url, nomUser, mdp);
             statement_1 = connexion.createStatement();
 
             resultat = statement_1.executeQuery("SELECT id FROM projet WHERE nom=\'" + name + "\';");
@@ -223,15 +228,13 @@ public class Projet {
     }
 
     private String executerSql(String str) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/gestion_projet";
-        String utilisateur = "root";
-        String motDePasse = "4444";
+        String url = "jdbc:mysql://"+ip+":3306/gestion_projet";
         Connection connexion = null;
         Statement statement = null;
         ResultSet resultat = null;
         String msg = "";
 
-        connexion = DriverManager.getConnection(url, utilisateur, motDePasse);
+        connexion = DriverManager.getConnection(url, this.nomUser, mdp);
         statement = connexion.createStatement();
         statement.executeUpdate(str);
         msg = str + "  ==> OK!";
