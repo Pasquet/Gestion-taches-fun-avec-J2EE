@@ -34,6 +34,8 @@ public class Servlet extends HttpServlet {
             try {
                 String nom = request.getParameter("nom");
                 this.premiereConnexion(nom, request.getParameter("ip"), request.getParameter("nomUser"), request.getParameter("mdp"));
+            
+                request.getSession().setAttribute("projet", projet);
             } catch (Exception ex) {
                 messageAlerte = ex.getMessage();
                 request.setAttribute("messageAlerte", messageAlerte);

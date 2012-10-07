@@ -44,6 +44,13 @@
                 });         
             });
  
+ 
+             jQuery(document).ready(function(){
+                $('.estUnMembre').click(function () {
+                        document.location.href="/Gestion-taches-fun-avec-J2EE/Membre?id="+this.id;
+                });         
+            });
+ 
             jQuery(document).ready(function(){
                 $(".sourisTrack").click(function(e){
                     $( "#dialog-modal" ).dialog( "open" );
@@ -117,13 +124,13 @@
                     <TABLE BORDER="1">
 
                         <%
-                                for (int i = 0; i < projet.getNbTaches(); i++) {%>
+                            for (int i = 0; i < projet.getNbTaches(); i++) {%>
                         <TR>
                             <TD width="400px"> 
                                 <span class="afficher">
                                     <%out.print(projet.getTache(i).getNom());%> 
                                     <span style="display:none;"> 
-                                         <%out.print(projet.getTache(i).getDescription());%> 
+                                        <%out.print(projet.getTache(i).getDescription());%> 
                                     </span>  
                                 </span>
                                 <table> <tr><td><%out.print(projet.getTache(i).getDepart());%></td><td width="300px"><div style="height:10px; width: 80% "  id="progressbar<%out.print(i);%>"></div>
@@ -145,7 +152,11 @@
                                         for (int j = 0; j < projet.getTache(i).getNbMembres(); j++) {
                                     %>
                                     <tr>
-                                        <td><%out.print(projet.getTache(i).getMembre(j));%></td>
+                                        <td>
+                                            <span class="estUnMembre" id="<% out.print(projet.getTache(i).getMembre(j).getId());%>"> 
+                                                <%out.print(projet.getTache(i).getMembre(j));%>
+                                            </span>
+                                        </td>
                                         <TD>  <input style="background:none;" id="r_<%out.print(i);%>_<%out.print(j);%>" name="r_<%out.print(i);%>_<%out.print(j);%>" type="submit" value="Retirer membre"> </TD> 
                                     </tr>
                                     <%}%>
@@ -165,14 +176,16 @@
                 <td>   
                     <TABLE BORDER="0">
                         <%
-                                for (int i = 0; i < projet.getToutLesMembres().size(); i++) {%>
+                            for (int i = 0; i < projet.getToutLesMembres().size(); i++) {%>
                         <TR>
                             <TD> 
                                 <%out.print(projet.getToutLesMembres().get(i).getId());%>
                             </TD> 
                             <TD> 
+                                <span class="estUnMembre" id="<% out.print(projet.getToutLesMembres().get(i).getId());%>"> 
                                 <%out.print(projet.getToutLesMembres().get(i).getNom());%>  
                                 <%out.print(projet.getToutLesMembres().get(i).getPrenom());%>
+                                </span>
                             </TD> 
                         </TR>
                         <%}%>
