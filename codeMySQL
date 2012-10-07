@@ -1,0 +1,36 @@
+CREATE DATABASE gestion_projet DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+CREATE TABLE  gestion_projet.projet(
+ id INT( 11 ) NOT NULL AUTO_INCREMENT ,
+ nom VARCHAR( 60 ) NOT NULL ,
+ PRIMARY KEY ( id ),
+ UNIQUE ( nom )
+);
+
+CREATE TABLE  gestion_projet.membre(
+ id INT( 11 ) NOT NULL AUTO_INCREMENT ,
+ nom VARCHAR( 60 ) NOT NULL ,
+ prenom VARCHAR( 60 ) NOT NULL ,
+ PRIMARY KEY ( id )
+) ;
+
+CREATE TABLE  gestion_projet.tache(
+ nom 		VARCHAR( 60 ) NOT NULL ,
+ description    VARCHAR( 60 ) NOT NULL ,
+ duree 		VARCHAR( 60 ) NOT NULL ,
+ debut 		VARCHAR( 60 ) NOT NULL ,
+ id_membre 	int(11) NOT NULL,
+ id_projet 	int(11) NOT NULL 
+) ;
+
+
+INSERT INTO gestion_projet.projet (nom) VALUES ('projet1');
+INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Pasquet', 'Jerome');
+INSERT INTO gestion_projet.tache (nom, description, duree, debut,  id_membre,  id_projet ) VALUES ('Tache1', ' test tache 1', '6', '11/12/2012',1,1);
+INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Nigon', 'Julien');
+INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Marine', 'Terran');
+INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Maraudeur', 'Amour');
+INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Zergling', 'Zerg');
+INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('BroodLord', 'Zergounet');
+INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Nova', 'fantome');
+INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Pomf', 'Thud');
