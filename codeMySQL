@@ -26,7 +26,7 @@ CREATE TABLE  gestion_projet.tache(
 
 INSERT INTO gestion_projet.projet (nom) VALUES ('projet1');
 INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Pasquet', 'Jerome');
-INSERT INTO gestion_projet.tache (nom, description, duree, debut,  id_membre,  id_projet ) VALUES ('Tache1', ' test tache 1', '6', '11/12/2012',1,1);
+INSERT INTO gestion_projet.tache (nom, description, duree, debut,  id_membre,  id_projet ) VALUES ('Tache1', ' test tache 1', '15/12/2012', '11/12/2012',1,1);
 INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Nigon', 'Julien');
 INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Marine', 'Terran');
 INSERT INTO gestion_projet.membre (nom, prenom) VALUES ('Maraudeur', 'Amour');

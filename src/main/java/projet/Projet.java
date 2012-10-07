@@ -335,7 +335,12 @@ public class Projet {
         for(int i=0;i<this.getNbTaches();i++)
             if(this.getTache(i).percent()>=100)
                 fini++;
-        return fini+"/"+this.getNbTaches()+"   soit "+String.valueOf(100.*fini/this.getNbTaches()).substring(0, 4) +" %";
+        
+        if(this.getNbTaches()<=0)
+            return "";
+        String s = String.valueOf(100.*fini/this.getNbTaches());
+        
+        return fini+"/"+this.getNbTaches()+"   soit "+s.substring(0, Math.min(4, s.length())) +" %";
         
     }
 }

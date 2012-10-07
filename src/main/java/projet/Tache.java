@@ -18,17 +18,18 @@ public class Tache {
     private String depart = "depart", duree = "duree";
 
     public Tache(String nom) throws Exception {
-        this(nom, "","" ,"");
+        this(nom, "", "", "");
     }
 
-    public Tache(String nom, String description,String debut,String duree) throws Exception {
+    public Tache(String nom, String description, String debut, String duree) throws Exception {
         this.nom = nom;
         this.description = description;
         this.depart = debut;
         this.duree = duree;
-        
-        if(!verificationDate())
-                throw new Exception( "Les dates "+ depart +" et/ou "+ duree+" sont incorrectes." );
+
+        if (!verificationDate()) {
+            throw new Exception("Les dates " + depart + " et/ou " + duree + " sont incorrectes.");
+        }
 
     }
 
@@ -72,45 +73,46 @@ public class Tache {
     public String getDepart() {
         return depart;
     }
-    
-    public long percent(){
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
-        Date d1 = null;
-        Date d2 = null;
-        Date d3 = new Date();
-        try {
-            d1 = format.parse(depart);
-            d2 = format.parse(duree);
-        } catch (ParseException e) {
-        return -1;
-        }    
-        double diff = ((double)(System.currentTimeMillis() - d1.getTime())/(double)(d2.getTime() - d1.getTime()));
-        if(diff>1.)
-            diff = 1;
-        else if(diff<=0.)
-            diff = 0.;
+
+    public long percent() {
+         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
+         Date d1 = null;
+         Date d2 = null;
+         Date d3 = new Date();
+       
         
+         try {
+         d1 = format.parse(depart);
+         d2 = format.parse(duree);
+         } catch (ParseException e) {
+         return 0;
+         }    
+         double diff = ((double)(System.currentTimeMillis() - d1.getTime())/(double)(d2.getTime() - d1.getTime()));
+         if(diff>1.)
+         diff = 1;
+         else if(diff<=0.)
+         diff = 0.;
         
-        return (long) (diff*100);
-        //return (int) ((t2.getTimeInMillis()-t1.getTimeInMillis())/(System.currentTimeMillis()-t1.getTimeInMillis()));
-        
+         return (long) (diff*100);
+       // return (int) ((t2.getTimeInMillis()-t1.getTimeInMillis())/(System.currentTimeMillis()-t1.getTimeInMillis()));
+
     }
 
     private boolean verificationDate() {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
-        Date d1 = null;
-        Date d2 = null;
-        try {
-            d1 = format.parse(depart);
-            d2 = format.parse(duree);
-        } catch (ParseException e) {
-        return false;
-        }    
-        if(d2.getTime()-d1.getTime()<=0){
-            return false;
-        }
-        else
-            return true;
+         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
+         Date d1 = null;
+         Date d2 = null;
+         try {
+         d1 = format.parse(depart);
+         d2 = format.parse(duree);
+         } catch (ParseException e) {
+         return false;
+         }    
+         if(d2.getTime()-d1.getTime()<=0){
+         return false;
+         }
+         else
+        return true;
     }
 
     public boolean estPresent(Membre me) {
