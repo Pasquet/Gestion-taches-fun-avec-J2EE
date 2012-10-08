@@ -43,9 +43,23 @@ public class ConnexionProjet extends HttpServlet {
                 this.getServletContext().getRequestDispatcher("/inscription.jsp").forward(request, response);
                 return;
             }
-
         }
-
+        else if (liste.containsKey("name")) {
+            try {
+                String nom = request.getParameter("name");
+                Projet p = new Projet(nom);
+                p.connexion();
+                request.setAttribute("projet", p);
+                request.getSession().setAttribute("projet", p);
+                request.getRequestDispatcher("/serveur").forward(request, response) ;
+                
+            } catch (Exception ex) {
+                messageAlerte = "Erreur lors de la lecture DD : "+ex.getMessage();
+                request.setAttribute("messageAlerte", messageAlerte);
+                this.getServletContext().getRequestDispatcher("/inscription.jsp").forward(request, response);
+                return;
+            }
+        }
     }
 
     private Projet premiereConnexion(String nom, String ip, String user, String mdp) throws Exception {

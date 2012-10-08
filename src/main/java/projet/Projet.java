@@ -19,7 +19,9 @@ public class Projet implements Serializable {
     }
 
     public String connexion() throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fichier = new FileInputStream(name + ".dat");
+                String CHEMIN = "/home/jitou/Bureau/git/Gestion-taches-fun-avec-J2EE/";
+
+        FileInputStream fichier = new FileInputStream(CHEMIN+name + ".dat");
         ObjectInputStream o = new ObjectInputStream(fichier);
         Projet p = (Projet) o.readObject();
 
