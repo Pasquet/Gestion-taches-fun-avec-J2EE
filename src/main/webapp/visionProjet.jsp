@@ -114,7 +114,10 @@
             out.println((String) request.getAttribute("messageAlerte"));
         %>
 
-        <h1>${ projet.getName()}  : ${ projet.getId_projet() }   </h1>  <text size="10px">==>  ${ projet.etatProjet() } </text>
+        <table> <tr>
+                <td width="300px"> <h1>${ projet.getName() }   </h1> </td>   <td>   <form method="post" action="serveur"><input id="save" name="save" type="submit" value="Sauvegarder en local."></form>  </td> 
+        </tr></tr></table>
+        <text size="10px">==>  ${ projet.etatProjet() } </text>
     </h1>
 
     <form method="post" action="serveur">

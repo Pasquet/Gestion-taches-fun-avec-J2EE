@@ -33,6 +33,7 @@ public class MembreUI extends HttpServlet {
         request.setAttribute("membre", membre);
         request.setAttribute("projet", p);
         this.getServletContext().getRequestDispatcher( "/membre.jsp" ).forward( request, response );
+
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

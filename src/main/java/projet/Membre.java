@@ -4,7 +4,10 @@
  */
 package projet;
 
-public class Membre {
+import java.io.Serializable;
+
+public class Membre implements Serializable {
+    
     private String nom, prenom;
     private int id;
     

@@ -4,6 +4,7 @@
  */
 package projet;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Tache {
+public class Tache implements Serializable {
 
     private String nom, description;
     private ArrayList<Membre> membres = new ArrayList<Membre>();

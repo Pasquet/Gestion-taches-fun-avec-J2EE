@@ -16,7 +16,7 @@ import projet.Projet;
 
 public class Servlet extends HttpServlet {
 
-    private Projet projet;
+    private Projet projet = null;
 
     public Servlet() {
         super();
@@ -30,18 +30,9 @@ public class Servlet extends HttpServlet {
         String messageAlerte = "Aucune alerte";
 
 
-        if (liste.containsKey("nom")) {
-            try {
-                String nom = request.getParameter("nom");
-                this.premiereConnexion(nom, request.getParameter("ip"), request.getParameter("nomUser"), request.getParameter("mdp"));
-            
-                request.getSession().setAttribute("projet", projet);
-            } catch (Exception ex) {
-                messageAlerte = ex.getMessage();
-                request.setAttribute("messageAlerte", messageAlerte);
-                this.getServletContext().getRequestDispatcher("/inscription.jsp").forward(request, response);
-                return;
-            }
+
+        if (projet == null) {
+            projet = (Projet) request.getAttribute("projet");
 
         } else {
             try {
@@ -51,23 +42,12 @@ public class Servlet extends HttpServlet {
             }
         }
 
-   
+
 
         request.setAttribute("projet", projet);
         request.setAttribute("messageAlerte", messageAlerte);
         this.getServletContext().getRequestDispatcher("/visionProjet.jsp").forward(request, response);
 
-    }
-
-    private void premiereConnexion(String nom, String ip, String user, String mdp) throws Exception {
-
-
-        projet = new Projet(nom, ip, user, mdp);
-        String messageAlerte = projet.connexion();
-
-        if (projet.getId_projet() == -1) {
-            throw new Exception("Erreur la connexion au projet semble impossible : " + messageAlerte);
-        }
     }
 
     private void doAction(Map<String, String[]> liste) throws Exception {
@@ -88,6 +68,12 @@ public class Servlet extends HttpServlet {
             } else if (str.charAt(0) == 'e')/* Supprime la tache */ {
                 int tache = Integer.parseInt(str.split("_")[1]);
                 messageAlerte = projet.supprimerTache(tache);
+            } else if (str.charAt(0) == 's')/* Save locale */ {
+                messageAlerte = projet.sauvegarder();
+                if (messageAlerte.length() >= 1) {
+                    throw new Exception(messageAlerte);
+                }
+
             }
         } else {
 

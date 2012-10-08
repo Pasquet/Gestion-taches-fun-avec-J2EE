@@ -15,7 +15,7 @@
         %>
 
 
-        <form method="post" action="serveur">
+        <form method="post" action="ConnexionProjet">
             <fieldset>
                 <legend>Connexion à un projet</legend>
 
@@ -32,7 +32,7 @@
                 <input type="text" id="nom" name="nom" value="Nom projet" maxlength="40" />   <br />
              
 
-                <input type="submit" value="serveur"/>
+                <input type="submit" value="Connexion"/>
                 <br />
 
             </fieldset>
