@@ -21,21 +21,15 @@
         <script>
             jQuery(document).ready(function(){
                 $('.afficher').mouseenter(function () {
-              
                     $(this).append($("#description"));
                     var pos = $(this).position();              
-
                     $("#description").css({
                         position: "absolute",
                         top: (pos.top+20) + "px",
                         left: (pos.left+20 ) + "px"
                     });
                     $( "#description" ).show( "blind", {}, 500 );
-                    $( "#description" ).text($(this).find('span').text());
- 
- 
-
-                    //$( "#description" ).position(p);
+                    $( "#description" ).html($(this).find('span').html());
 
                 });
                 
@@ -133,7 +127,7 @@
                                 <span class="afficher">
                                     <%out.print(projet.getTache(i).getNom());%> 
                                     <span style="display:none;"> 
-                                        <%out.print(projet.getTache(i).getDescription());%> 
+                                        <%out.print(projet.getTache(i).getDescription().replace("\n", "</br>"));%> 
                                     </span>  
                                 </span>
                                 <table> <tr><td><%out.print(projet.getTache(i).getDepart());%></td><td width="300px"><div style="height:10px; width: 80% "  id="progressbar<%out.print(i);%>"></div>
