@@ -19,9 +19,8 @@ public class Projet implements Serializable {
     }
 
     public String connexion() throws FileNotFoundException, IOException, ClassNotFoundException {
-                String CHEMIN = "/home/jitou/Bureau/git/Gestion-taches-fun-avec-J2EE/";
-
-        FileInputStream fichier = new FileInputStream(CHEMIN+name + ".dat");
+        String CHEMIN = "/home/jitou/Bureau/git/Gestion-taches-fun-avec-J2EE/";
+        FileInputStream fichier = new FileInputStream(CHEMIN + name + ".dat");
         ObjectInputStream o = new ObjectInputStream(fichier);
         Projet p = (Projet) o.readObject();
 
@@ -31,32 +30,24 @@ public class Projet implements Serializable {
         for (int i = 0; i < p.getNbTaches(); i++) {
             taches.add(p.getTache(i));
         }
-
         o.close();
         fichier.close();
         return "Chargement finie";
     }
 
-    public String sauvegarder(){
+    public String sauvegarder() {
         String CHEMIN = "/home/jitou/Bureau/git/Gestion-taches-fun-avec-J2EE/";
         try {
-            FileOutputStream fichier = new FileOutputStream(CHEMIN+name + ".dat");
+            FileOutputStream fichier = new FileOutputStream(CHEMIN + name + ".dat");
             ObjectOutputStream o = new ObjectOutputStream(fichier);
             o.writeObject(this);
             o.flush();
             o.close();
-            
             fichier.close();
         } catch (IOException ex) {
             return ex.getMessage();
-            }
-        
-        
+        }
         return "";
-    }
-
-    public void addTache(Tache t) {
-        taches.add(t);
     }
 
     public boolean estUnMembrePresent(int id) {
@@ -77,32 +68,11 @@ public class Projet implements Serializable {
         return null;
     }
 
-    public String toString() {
-        String out = name + " \n\n";
-        for (int i = 0; i < taches.size(); i++) {
-            out += taches.get(i) + "\n";
-        }
-        return out;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getNbTaches() {
-        return taches.size();
-    }
-
-    public Tache getTache(int i) {
-        return taches.get(i);
-    }
-
     public String retirerPersonneDeTache(int t, int p) throws SQLException, Exception {
         Tache ta = getTache(t);
         int id_p = ta.getMembre(p).getId();
         ta.retirerMembre(p);
         sauvegarder();
-
         return " ";
     }
 
@@ -111,21 +81,14 @@ public class Projet implements Serializable {
         if (ta == null) {
             throw new Exception("Aucune tache associé à " + t);
         }
-
         this.taches.remove(t);
         sauvegarder();
-
         return " ";
-    }
-
-    public ArrayList<Membre> getToutLesMembres() {
-        return toutLesMembres;
     }
 
     public String ajouterPersonne(int pers, int t) throws SQLException, Exception {
         Tache ta = getTache(t);
         Membre me = trouveMembre(pers);
-        // return ta.getNom()+"  "+pers;
         if (ta == null) {
             throw new Exception("Aucune tache associé à " + t);
         } else if (me == null) {
@@ -133,11 +96,8 @@ public class Projet implements Serializable {
         } else if (ta.estPresent(me)) {
             throw new Exception(me.getNom() + " travaille deja sur la tache " + ta.getNom());
         }
-
-
         ta.addMembre(me);
         sauvegarder();
-
         return " ";
     }
 
@@ -156,7 +116,6 @@ public class Projet implements Serializable {
                 return this.getTache(i);
             }
         }
-
         return null;
     }
 
@@ -164,8 +123,6 @@ public class Projet implements Serializable {
         if (tachePresente(nom)) {
             throw new Exception("Une tache est deja associé au nom de " + nom);
         }
-
-
         this.addTache(new Tache(nom, description, date1, date2));
         sauvegarder();
         return " ";
@@ -183,5 +140,33 @@ public class Projet implements Serializable {
         }
         String s = String.valueOf(100. * fini / this.getNbTaches());
         return fini + "/" + this.getNbTaches() + "   soit " + s.substring(0, Math.min(4, s.length())) + " %";
+    }
+
+    public void addTache(Tache t) {
+        taches.add(t);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getNbTaches() {
+        return taches.size();
+    }
+
+    public Tache getTache(int i) {
+        return taches.get(i);
+    }
+
+    public ArrayList<Membre> getToutLesMembres() {
+        return toutLesMembres;
+    }
+
+    public String toString() {
+        String out = name + " \n\n";
+        for (int i = 0; i < taches.size(); i++) {
+            out += taches.get(i) + "\n";
+        }
+        return out;
     }
 }

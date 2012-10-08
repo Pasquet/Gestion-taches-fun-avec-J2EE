@@ -28,7 +28,6 @@ public class Membre implements Serializable {
     public int getId() {
         return id;
     }
-    
     public String toString(){
         return nom+" "+prenom;
     }
